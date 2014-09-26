@@ -41,10 +41,17 @@ install:
   
   # Initial test
   - echo $PWD
+  - echo $LS
+  - cd test
+  - echo $LS
+  - echo $PWD
+  - composer install
   - bin/behat features/home.feature
-  - cd ..
+  - cd ../../.
   
   # Run rebuild 
+  - echo $PWD
+  - echo $LS
   - sh rebuild_dkan_core.sh -t 7.x-1.3 -d $PWD/dkan/docroot
   
   # Secondary test
