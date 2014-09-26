@@ -14,14 +14,16 @@ install:
   - sudo apt-get update > /dev/null
   - sudo apt-get --quiet=2 install php5-cgi php5-curl php5-gd php5-mysql > /dev/null
 
-  # Install latest Drush 6.
+  # Install latest Drush 7.
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  - composer global require --no-interaction drush/drush:6.*
-  - drush dl registry_rebuild
+  - composer global require --no-interaction drush/drush:dev-master
+  - composer global require --no-interaction youngj/httpserver:*
   
-  - sh rebuild_dkan_core.sh -t 7.x-1.3 -d $PWD/docroot
+  # Install DKAN
+  - git clone git@github.com:NuCivic/dkan.git
+  - cd dkan
+  - drush make build-dkan.make docroot
   - cd docroot
-  
   - drush si dkan --sites-subdir=default --db-url=mysql://root:@127.0.0.1:3306/dkan_travis --account-name=admin --account-pass=admin  --site-name="DKAN" install_configure_form.update_status_module='array(FALSE,FALSE)' --yes
   - drush cc all --yes
   - drush --quiet --yes --root=$PWD runserver :8888 > /dev/null 2>&1 &
@@ -36,12 +38,15 @@ install:
   - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
   - java -jar selenium-server-standalone-2.42.2.jar -quiet -p 4444 -log shut_up_selenium &
   - sleep 5
-
-script:
-  - bin/behat features/groups.feature
-  - bin/behat features/dataset.feature
-  - bin/behat features/datastore.feature
-  - bin/behat features/editor.feature
+  
+  # Initial test
+  - echo $PWD
   - bin/behat features/home.feature
-  - bin/behat features/search.feature
-  - bin/behat features/recline.feature
+  - cd ..
+  
+  # Run rebuild 
+  - sh rebuild_dkan_core.sh -t 7.x-1.3 -d $PWD/dkan/docroot
+  
+  # Secondary test
+  - echo $PWD
+  - bin/behat features/home.feature
