@@ -55,6 +55,6 @@ install:
   - sh rebuild_dkan_core.sh -t 7.x-1.3 -d $PWD/dkan/docroot
   
   # Secondary test
-  - cd docroot
+  - cd dkan/docroot
   - echo $PWD
   - bin/behat features/search.feature
