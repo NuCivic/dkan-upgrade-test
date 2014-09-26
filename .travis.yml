@@ -43,10 +43,10 @@ install:
   - echo $PWD
   - echo $LS
   - cd test
-  - echo $LS
+  - echo $ls
   - echo $PWD
   - composer install
-  - bin/behat features/home.feature
+  - bin/behat features/search.feature
   - cd ../../.
   
   # Run rebuild 
