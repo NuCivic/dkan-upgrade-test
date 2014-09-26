@@ -30,7 +30,7 @@ tar pczfP $TMP_DIR/mysite.tar.gz $MYSITE_DIR
 mv $MYSITE_DIR $MYSITE_TMP_DIR
 
 echo Downloading DKAN
-git clone git@github.com:NuCivic/dkan.git $DKAN_TMP_DIR
+git clone https://github.com/NuCivic/dkan.git $DKAN_TMP_DIR
 cd $DKAN_TMP_DIR
 git checkout $TAG
 
