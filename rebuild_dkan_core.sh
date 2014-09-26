@@ -12,7 +12,7 @@ if [ ! "$TAG" ]; then
   echo "-t identifying the tag is required"
   exit
 fi
-if [ ! "$TAG" ]; then
+if [ ! "$MYSITE_DIR" ]; then
   echo "-d identifying the site directory is required"
   exit
 fi
