@@ -9,7 +9,6 @@ mysql:
   encoding: utf8
 
 install:
-  - echo $PWD
   - mysql -e 'create database data_starter;'
   - sudo apt-get update > /dev/null
   - sudo apt-get --quiet=2 install php5-cgi php5-curl php5-gd php5-mysql > /dev/null
@@ -40,21 +39,14 @@ install:
   - sleep 5
   
   # Initial test
-  - echo $PWD
-  - echo $LS
   - cd test
-  - echo $ls
-  - echo $PWD
   - composer install
   - bin/behat features/search.feature
   - cd ../../.
   
   # Run rebuild 
-  - echo $PWD
-  - echo $LS
   - sh rebuild_dkan_core.sh -t 7.x-1.3 -d $PWD/dkan/docroot
   
   # Secondary test
   - cd dkan/test
-  - echo $PWD
   - bin/behat features/search.feature
