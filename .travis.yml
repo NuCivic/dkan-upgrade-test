@@ -21,6 +21,7 @@ install:
   # Install DKAN
   - git clone https://github.com/NuCivic/dkan.git
   - cd dkan
+  - git checkout 7.x-1.6
   - drush make build-dkan.make docroot
   - cd docroot
   - drush si dkan --sites-subdir=default --db-url=mysql://root:@127.0.0.1:3306/dkan_travis --account-name=admin --account-pass=admin  --site-name="DKAN" install_configure_form.update_status_module='array(FALSE,FALSE)' --yes
@@ -46,7 +47,7 @@ script:
   - cd ../../.
   
   # Run rebuild 
-  - sh rebuild_dkan_core.sh -t 7.x-1.3 -d $PWD/dkan/docroot
+  - sh rebuild_dkan_core.sh -t 7.x-1.x -d $PWD/dkan/docroot
   
   # Secondary test
   - cd dkan/test
